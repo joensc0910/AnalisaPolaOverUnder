@@ -27,3 +27,11 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         run: python main.py
+
+      - name: Jalankan Script Pengecek Bola
+        run: python bot.py
+
+      - name: Lapor Error ke Telegram
+        if: failure()
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} -d text="⚠️ ALARM: Mesin Pengecek Bola hari ini GAGAL berjalan! Segera cek log di GitHub."
