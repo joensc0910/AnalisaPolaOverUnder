@@ -28,9 +28,6 @@ jobs:
           GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         run: python main.py
 
-      - name: Jalankan Script Pengecek Bola
-        run: python bot.py
-
       - name: Lapor Error ke Telegram
         if: failure()
         run: |
